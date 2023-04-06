@@ -1,0 +1,21 @@
+{% extends "mainapp/base.html" %}
+{% load static %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto mt-3 mb-5 py-5">
+    <div class="col-4 mx-auto text-center  py-1 px-1  bg-light">
+        
+        Bienvenus sur ToDoList.com!
+        <br><br>
+        Ici, vous allez pouvoir créer, voir et gérer toutes vos listes de tâches centralisées sur votre tableau de bord.
+        <br><br>
+        Mais d'abord vous devez<br><a href="{% url 'userLogin' %}">vous identifier</a> ou <a href="{% url 'userRegister' %}">créer un compte</a>.
+    </div>
+</div>
+
+
+{% endblock %}

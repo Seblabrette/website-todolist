@@ -1,0 +1,42 @@
+{% extends "mainapp/base.html" %}
+{% load static %}
+
+{% block title %}
+    User Login Page
+{% endblock %}
+
+{% block content %}
+
+<div class="container text-center py-5">
+        <h3> Identifiez vous:</h3>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="row m-1">
+                <div class="col text-end">Identifiant : </div>
+                <div class="col text-start">
+                    <input type="text" name="username" placeholder="Identifiant...">
+                </div>
+            </div>
+            <div class="row m-1">
+                <div class="col text-end">Email : </div>
+                <div class="col text-start">
+                    <input type="password" name="password" placeholder="Mot de passe...">
+                </div>
+            </div>
+            <div class="col mt-3">
+                <input class="btn bg-light" type="submit" name="Login User" value="M'identifier">
+            </div>
+            {% for message in messages %}
+                <p id="messages">{{message}}</p>
+            {% endfor %}
+            <div class="col mt-3">
+                Pas de compte? Alors <a class="a-link" href="{% url 'userRegister' %}">Créez en un</a> !
+            </div>
+        </form>
+</div>
+
+
+
+{% endblock %}
+
+

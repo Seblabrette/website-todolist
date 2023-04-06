@@ -1,0 +1,30 @@
+{% extends "mainapp/base.html" %}
+{% load static %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto mt-3 mb-5 py-5">
+    <div class="col-4 mx-auto text-center  py-1 px-1  bg-light">
+        <h3> Donnez un nom à votre liste:</h3>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="row m-1">
+                <input type="text" name="listname" placeholder="Nom de votre liste...">
+            </div>
+            <div class="col mt-3">
+                <input class="btn bg-info" type="submit" name="create list" value="Créer ma liste">
+            </div>
+            {% for message in messages %}
+                <p id="messages">{{message}}</p>
+            {% endfor %}
+        </form>
+
+
+    </div>
+</div>
+
+
+{% endblock %}

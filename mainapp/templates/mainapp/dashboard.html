@@ -1,0 +1,82 @@
+{% extends "mainapp/base.html" %}
+{% load static %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto mt-3 mb-5 p-1">
+    <div class="d-flex flex-row-reverse">
+        <div class="text-center" >
+            Vous avez actuellement {{nblistes}} listes.<br>
+            <a class="btn bg-light me-3" href="{% url 'createlist' %}">
+                Nouvelle Liste
+            </a>
+        </div>
+        <div class="col text-start">
+            Bonjour {{request.user}}!
+        </div>
+
+    </div>
+    <br><br>
+    <div class="row">
+        {% csrf_token %}
+        {% for list in lists %}
+        <div class="col-lg-3 mb-3">
+            <div class="box-element bg-light">
+                <strong><a class="text-body text-decoration-none" href="{% url 'detailview' list_id=list.id %}">{{list.title}}</a></strong>
+                <hr>
+                <div class="d-flex justify-content-between mt-3">
+                        <a class="btn btn-info rename-btn" style="font-size:small" href="{% url 'rename-list' list_id=list.id %}">Renommer</a>
+                        <button data-listid="{{list.id}}" data-csrftoken="{{csrf_token}}" class="btn btn-danger delete-btn" style="font-size:small">Supprimer</button>
+                </div>
+                
+                
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    
+    
+    
+    
+</div>
+<script type="text/javascript"defer>
+    
+    let deletebtnlst = document.querySelectorAll(".delete-btn")
+    for (let i=0;i<deletebtnlst.length;i++){
+        let elem = deletebtnlst[i];
+        elem.addEventListener('click', function(){
+            deleteList(this.dataset.listid, this.dataset.csrftoken)
+        });
+    }
+
+    function deleteList(listid, csrftoken){
+        console.log("effaçage de la liste numéro ", listid);
+        var url = '/delete-list/'
+
+        fetch(url, {
+            method: 'POST',
+            headers:{
+                'Content-Type':'application/json',
+                'X-CSRFToken':csrftoken,
+            },
+            body:JSON.stringify({'listId':listid})
+        })
+
+        .then((response) => {
+            return response.json()
+        })
+
+        .then((data) => {
+            console.log('data :', data)
+            alert('Liste effacée!')
+            location.reload()
+        });
+    };
+
+
+</script>
+{% endblock %}

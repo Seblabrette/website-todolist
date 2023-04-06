@@ -1,0 +1,55 @@
+{% extends "mainapp/base.html" %}
+{% load static %}
+
+{% block title %}
+    New User Creation
+{% endblock %}
+
+{% block content %}
+
+<div class="container text-center py-5">
+        <h3> Créez votre compte:</h3>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="row m-1">
+                <div class="col text-end">Identifiant : </div>
+                <div class="col text-start">{{form.username}}</div>
+            </div>
+            <div class="row m-1">
+                <div class="col text-end">Email : </div>
+                <div class="col text-start">{{form.email}}</div>
+            </div>
+            <div class="row m-1">
+                <div class="col text-end">Mot de passe : </div>
+                <div class="col text-start">{{form.password1}}</div>
+            </div>
+            <div class="row m-1">
+                <div class="col text-end">Confirmez le mot de passe : </div>
+                <div class="col text-start">{{form.password2}}</div>
+            </div>
+            <div class="col mt-3">
+                <input class="btn bg-light" type="submit" name="Create User" value="Créer mon compte">
+            </div>
+            
+            <div class="col mt-3">
+                Vous avez déjà un compte? Alors <a class="a-link" href="{% url 'userLogin' %}">Identifiez-vous</a>
+            </div>
+        </form>
+</div>
+
+<script type="text/javascript">
+    let formfields = document.getElementsByTagName("input")
+    for (let i=1;i<5;i++){
+        formfields[i].size = 30;
+    }
+    formfields[1].placeholder='...';
+    formfields[2].placeholder='...';
+    formfields[3].placeholder='Définissez votre mot de passe';
+    formfields[4].placeholder='Confirmez votre mot de passe';
+
+</script>
+
+
+{% endblock %}
+
+
